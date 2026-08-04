@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="sw" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Core Digital — Tunajenga Mfumo Unaofanya Kazi</title>
+
+  <!-- Bootstrap 5.3 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── TOKENS ─── */
+    :root {
+      --bg-base:    #0A0F1E;
+      --bg-surface: #111827;
+      --bg-card:    #1A2235;
+      --border:     #1E293B;
+      --cyan:       #06B6D4;
+      --green:      #10B981;
+      --text-main:  #F1F5F9;
+      --text-muted: #64748B;
+      --text-soft:  #94A3B8;
+      --grad:       linear-gradient(135deg, #06B6D4, #10B981);
+    }
+
+    /* ─── BASE ─── */
+    *, body { font-family: 'Inter', sans-serif; }
+    body { background: var(--bg-base); color: var(--text-main); }
+    ::selection { background: #06B6D440; }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-base); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+    /* ─── NAVBAR ─── */
+    .navbar {
+      background: rgba(10,15,30,0.85) !important;
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .navbar-brand {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    .nav-link {
+      color: var(--text-soft) !important;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--cyan) !important; }
+    .btn-nav-cta {
+      background: var(--grad);
+      color: #fff;
+      border: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 8px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-nav-cta:hover { opacity: 0.88; transform: translateY(-1px); color: #fff; }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(6,182,212,0.12), transparent),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(16,185,129,0.08), transparent),
+        var(--bg-base);
+      padding: 120px 0 80px;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      background: rgba(6,182,212,0.12);
+      border: 1px solid rgba(6,182,212,0.3);
+      color: var(--cyan);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+    .hero-title {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      color: var(--text-main);
+    }
+    .grad-text {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      color: var(--text-soft);
+      font-size: 1.05rem;
+      line-height: 1.85;
+      max-width: 520px;
+    }
+    .btn-primary-grad {
+      background: var(--grad);
+      border: none;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 14px 36px;
+      border-radius: 10px;
+      letter-spacing: 0.3px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-primary-grad:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(6,182,212,0.25);
+      color: #fff;
+    }
+    .btn-outline-ghost {
+      border: 1px solid var(--border);
+      color: var(--text-soft);
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 14px 36px;
+      border-radius: 10px;
+      background: transparent;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-block;
+    }
+    .btn-outline-ghost:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    /* Hero floating stats */
+    .hero-stat {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 24px;
+      text-align: center;
+    }
+    .hero-stat .num { font-size: 1.9rem; font-weight: 800; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-stat .lbl { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+
+    /* ─── SECTION LABELS ─── */
+    .section-eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text-main);
+    }
+
+    /* ─── PROJECT CARDS ─── */
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      height: 100%;
+    }
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 48px rgba(6,182,212,0.12);
+      border-color: rgba(6,182,212,0.35);
+    }
+    .card-thumb {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      position: absolute; inset: 0;
+    }
+    .card-thumb-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 40%, var(--bg-card) 100%);
+    }
+    .card-body-inner { padding: 20px 22px 22px; }
+    .card-tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .card-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+    .card-desc {
+      font-size: 0.84rem;
+      color: var(--text-soft);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .btn-card-visit {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-soft);
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 10px;
+      border-radius: 8px;
+      text-decoration: none;
+      text-align: center;
+      display: block;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .btn-card-visit:hover {
+      background: var(--grad);
+      border-color: transparent;
+      color: #fff;
+    }
+
+    /* ─── CONTACT ─── */
+    .contact-input {
+      background: var(--bg-base) !important;
+      border: 1px solid var(--border) !important;
+      color: var(--text-main) !important;
+      border-radius: 10px !important;
+      padding: 12px 16px !important;
+      font-size: 0.9rem !important;
+      transition: border-color 0.2s !important;
+    }
+    .contact-input:focus {
+      border-color: var(--cyan) !important;
+      box-shadow: 0 0 0 3px rgba(6,182,212,0.12) !important;
+      outline: none !important;
+    }
+    .contact-input::placeholder { color: var(--text-muted) !important; }
+    .form-label { color: var(--text-muted); font-size: 0.82rem; font-weight: 600; margin-bottom: 6px; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    footer a:hover { color: var(--cyan); }
+
+    /* ─── UTILITIES ─── */
+    .divider { border-color: var(--border); }
+    .badge-live { background: rgba(16,185,129,0.15); color: #10B981; border: 1px solid rgba(16,185,129,0.3); font-size: 0.7rem; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+    .badge-soon { background: rgba(245,158,11,0.15); color: #F59E0B; border: 1px solid rgba(245,158,11,0.3); font-size: 0.7rem; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+    .badge-dev  { background: rgba(6,182,212,0.12); color: #06B6D4; border: 1px solid rgba(6,182,212,0.3); font-size: 0.7rem; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .project-card, .btn-primary-grad, .btn-card-visit { transition: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ═══════════════════════════════════════════
+     NAVBAR
+═══════════════════════════════════════════ -->
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container">
+
+    <!-- Brand -->
+    <a class="navbar-brand fw-bold" href="#">⚡ CORE DIGITAL</a>
+
+    <!-- Toggler -->
+    <button class="navbar-toggler border-0" type="button"
+            data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <i class="bi bi-list" style="color:var(--text-soft);font-size:1.4rem;"></i>
+    </button>
+
+    <!-- Links -->
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto gap-1">
+        <li class="nav-item"><a class="nav-link" href="#showcase">Kazi Zetu</a></li>
+        <li class="nav-item"><a class="nav-link" href="#services">Huduma</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Wasiliana Nasi</a></li>
+      </ul>
+      <!-- WhatsApp CTA -->
+      <a href="https://wa.me/255700000000" target="_blank" class="btn-nav-cta">
+        <i class="bi bi-whatsapp me-1"></i> WhatsApp Nasi
+      </a>
+    </div>
+
+  </div>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════ -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="row align-items-center g-5">
+
+      <!-- Left: Copy -->
+      <div class="col-lg-6">
+        <span class="hero-eyebrow">🚀 Dar es Salaam · Mbeya · Tanzania</span>
+        <h1 class="hero-title mb-4">
+          Tunajenga <span class="grad-text">Mifumo ya Kidijitali</span><br>
+          Inayofanya Kazi Kweli.
+        </h1>
+        <p class="hero-sub mb-5">
+          Core Digital inatengeneza website, mifumo ya biashara, na majukwaa ya data kwa ajili ya makampuni ya Kitanzania yaliyo tayari kukua kwa kasi. Sio templates—ni zana zilizojengwa kulingana na mfumo wako wa kazi.
+        </p>
+        <div class="d-flex flex-wrap gap-3">
+          <a href="#showcase" class="btn-primary-grad">
+            Tazama Kazi Zetu <i class="bi bi-arrow-down ms-1"></i>
+          </a>
+          <a href="#contact" class="btn-outline-ghost">Omba Makadirio</a>
+        </div>
+      </div>
+
+      <!-- Right: Stats -->
+      <div class="col-lg-6">
+        <div class="row g-3">
+          <div class="col-6">
+            <div class="hero-stat">
+              <div class="num">50+</div>
+              <div class="lbl">Mifumo Iliyokamilika</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="hero-stat">
+              <div class="num">100%</div>
+              <div class="lbl">Uthabiti & Kuridhika</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="hero-stat">
+              <div class="num">&lt;24h</div>
+              <div class="lbl">Muda wa Kujibu</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="hero-stat">
+              <div class="num">3+</div>
+              <div class="lbl">Miaka Sokoni</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SHOWCASE — KADI 6 ZA WOBUSITE
+═══════════════════════════════════════════ -->
+<section id="showcase" style="background:var(--bg-surface);padding:100px 0;">
+  <div class="container">
+
+    <div class="text-center mb-5">
+      <span class="section-eyebrow">Portfolio</span>
+      <h2 class="section-title">Mifumo Tuliyotengeneza <span class="grad-text">na Kuzindua</span></h2>
+      <p style="color:var(--text-muted);max-width:480px;margin:12px auto 0;font-size:0.9rem;line-height:1.8;">
+        Mifumo sita iliyo live—kila mmoja utatua changamoto halisi ya kibiashara kwa mteja halisi.
+      </p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
+      <!-- ══ KADI YA 1 ══════════════════════════════ -->
+      <div class="col">
+        <div class="project-card">
+          <div class="card-thumb" style="background:linear-gradient(135deg,#0D2137,#0A1628);">
+            <span style="position:relative;z-index:1;">📦</span>
+            <div class="card-thumb-overlay"></div>
+          </div>
+          <div class="card-body-inner">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <span class="card-tag">Mfumo wa Stoo</span>
+              <span class="badge-live">Ipo Live</span>
+            </div>
+            <div class="card-name">Ghala App</div>
+            <p class="card-desc">Mfumo kamili wa kusimamia stoo na bidhaa, ripoti za mauzo, taarifa za akiba ndogo, na ufikiaji wa watumiaji wengi.</p>
+            <a href="#" target="_blank" class="btn-card-visit">
+              Fungua Mfumo <i class="bi bi-arrow-up-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ KADI YA 2 ══════════════════════════════ -->
+      <div class="col">
+        <div class="project-card">
+          <div class="card-thumb" style="background:linear-gradient(135deg,#0D2230,#071520);">
+            <span style="position:relative;z-index:1;">⚽</span>
+            <div class="card-thumb-overlay"></div>
+          </div>
+          <div class="card-body-inner">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <span class="card-tag">Uchambuzi wa Takwimu</span>
+              <span class="badge-live">Ipo Live</span>
+            </div>
+            <div class="card-name">Spotika</div>
+            <p class="card-desc">Jukwaa la uchambuzi wa mechi za mpira wa miguu linalotumia AI kutoa utabiri sahihi wa kila siku.</p>
+            <a href="https://spotika.dig.co.tz" target="_blank" class="btn-card-visit">
+              Fungua Jukwaa <i class="bi bi-arrow-up-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ KADI YA 3 ══════════════════════════════ -->
+      <div class="col">
+        <div class="project-card">
+          <div class="card-thumb" style="background:linear-gradient(135deg,#0D1F2D,#081218);">
+            <span style="position:relative;z-index:1;">👗</span>
+            <div class="card-thumb-overlay"></div>
+          </div>
+          <div class="card-body-inner">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <span class="card-tag">Duka la Mtandaoni</span>
+              <span class="badge-live">Ipo Live</span>
+            </div>
+            <div class="card-name">Biashara Clothes</div>
+            <p class="card-desc">Website ya kisasa ya kuuzia mavazi yenye orodha ya bidhaa, mfumo wa kikapu cha manunuzi, na malipo ya haraka kwa simu.</p>
+            <a href="https://biashara.dig.co.tz" target="_blank" class="btn-card-visit">
+              Tembelea Duka <i class="bi bi-arrow-up-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ KADI YA 4 ══════════════════════════════ -->
+      <div class="col">
+        <div class="project-card">
+          <div class="card-thumb" style="background:linear-gradient(135deg,#1A1A0D,#0D0D07);">
+            <span style="position:relative;z-index:1;">🔧</span>
+            <div class="card-thumb-overlay"></div>
+          </div>
+          <div class="card-body-inner">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <span class="card-tag">Jukwaa la Rejareja</span>
+              <span class="badge-soon">Inakuja Hivi Karibuni</span>
+            </div>
+            <div class="card-name">Hardware Store</div>
+            <p class="card-desc">Jukwaa la vifaa vya ujenzi na umeme lenye orodha kubwa ya bidhaa, utafutaji wa haraka, na ufuatiliaji wa oda.</p>
+            <a href="#" class="btn-card-visit" style="cursor:not-allowed;opacity:0.5;">
+              Inatengenezwa <i class="bi bi-hourglass-split ms-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ KADI YA 5 ══════════════════════════════ -->
+      <div class="col">
+        <div class="project-card">
+          <div class="card-thumb" style="background:linear-gradient(135deg,#1A0D1A,#0D070D);">
+            <span style="position:relative;z-index:1;">👟</span>
+            <div class="card-thumb-overlay"></div>
+          </div>
+          <div class="card-body-inner">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <span class="card-tag">Duka la Mtandaoni</span>
+              <span class="badge-soon">Inakuja Hivi Karibuni</span>
+            </div>
+            <div class="card-name">Shoes Selling</div>
+            <p class="card-desc">Soko la mtandaoni la viatu lenye vichujio vya saizi/rangi, picha za hali ya juu za bidhaa, na ufuatiliaji wa usafirishaji.</p>
+            <a href="#" class="btn-card-visit" style="cursor:not-allowed;opacity:0.5;">
+              Inatengenezwa <i class="bi bi-hourglass-split ms-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ KADI YA 6 ══════════════════════════════ -->
+      <div class="col">
+        <div class="project-card">
+          <div class="card-thumb" style="background:linear-gradient(135deg,#061A1A,#030D0D);">
+            <span style="position:relative;z-index:1;">⚡</span>
+            <div class="card-thumb-overlay"></div>
+          </div>
+          <div class="card-body-inner">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <span class="card-tag">Website ya Kampuni</span>
+              <span class="badge-dev">Upo Hapa</span>
+            </div>
+            <div class="card-name">Core Digital</div>
+            <p class="card-desc">Jukwaa letu kuu la kampuni—linaloonyesha huduma zetu, portal ya wateja, na mfumo wa kiotomatiki wa kusimamia oda.</p>
+            <a href="#" target="_blank" class="btn-card-visit">
+              Kagua Ukurasa <i class="bi bi-arrow-up-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /row -->
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SERVICES STRIP
+═══════════════════════════════════════════ -->
+<section id="services" style="background:var(--bg-base);padding:100px 0;">
+  <div class="container">
+
+    <div class="text-center mb-5">
+      <span class="section-eyebrow">Tunachofanya</span>
+      <h2 class="section-title">Zilizojengwa kwa Ajili ya <span class="grad-text">Biashara Halisi</span></h2>
+    </div>
+
+    <div class="row g-4">
+
+      <div class="col-md-4">
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:18px;padding:32px;">
+          <div style="font-size:1.8rem;margin-bottom:16px;">🌐</div>
+          <h5 style="color:var(--text-main);font-weight:700;margin-bottom:10px;">Ubunifu na Utengenezaji wa Website</h5>
+          <p style="color:var(--text-muted);font-size:0.88rem;line-height:1.8;margin:0;">
+            Website za kisasa zinazofunguka kwa kasi, zinazoonekana vizuri kwenye Google, na zinazobadili wateja wanaotembelea kuwa wateja halisi.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div style="background:var(--bg-card);border:1px solid rgba(6,182,212,0.25);border-radius:18px;padding:32px;">
+          <div style="font-size:1.8rem;margin-bottom:16px;">🗄️</div>
+          <h5 style="color:var(--text-main);font-weight:700;margin-bottom:10px;">Mifumo ya Usimamizi wa Biashara</h5>
+          <p style="color:var(--text-muted);font-size:0.88rem;line-height:1.8;margin:0;">
+            Usimamizi wa stoo, ufuatiliaji wa mauzo, na dashibodi za ripoti—mifumo inayochukua nafasi ya ma-spreadsheet na kuokoa masaa kila siku.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:18px;padding:32px;">
+          <div style="font-size:1.8rem;margin-bottom:16px;">📱</div>
+          <h5 style="color:var(--text-main);font-weight:700;margin-bottom:10px;">Mifumo ya Simu za Mkononi</h5>
+          <p style="color:var(--text-muted);font-size:0.88rem;line-height:1.8;margin:0;">
+            Kila mfumo tunaotengeneza unafanya kazi kikamilifu kwenye ukubwa wowote wa kioo—kwa sababu wateja wako wanatumia simu zao.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     CONTACT
+═══════════════════════════════════════════ -->
+<section id="contact" style="background:var(--bg-surface);padding:100px 0;">
+  <div class="container">
+    <div class="row g-5 align-items-start">
+
+      <!-- Left: Info -->
+      <div class="col-lg-5">
+        <span class="section-eyebrow">Wasiliana Nasi</span>
+        <h2 class="section-title mb-4">Tujenge <span class="grad-text">Kitu Pamoja.</span></h2>
+        <p style="color:var(--text-muted);line-height:1.9;font-size:0.92rem;margin-bottom:32px;">
+          Tueleze unachohitaji. Tutajibu ndani ya masaa 24 tukiwa na mchanganuo wa wazi—bila makadirio yasiyoeleweka wala gharama za siri.
+        </p>
+
+        <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:32px;">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="width:40px;height:40px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <i class="bi bi-envelope" style="color:var(--cyan);"></i>
+            </div>
+            <span style="color:var(--text-soft);font-size:0.9rem;">info@coredigital.co.tz</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="width:40px;height:40px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <i class="bi bi-geo-alt" style="color:var(--green);"></i>
+            </div>
+            <span style="color:var(--text-soft);font-size:0.9rem;">Mbeya & Dar es Salaam, Tanzania</span>
+          </div>
+        </div>
+
+        <!-- Quick Contact Buttons -->
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="https://wa.me/255700000000" target="_blank"
+             style="display:inline-flex;align-items:center;gap:8px;background:#22c55e;color:#fff;font-weight:600;font-size:0.85rem;padding:10px 20px;border-radius:8px;text-decoration:none;transition:opacity 0.2s;"
+             onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+            <i class="bi bi-whatsapp"></i> WhatsApp
+          </a>
+          <a href="mailto:info@coredigital.co.tz"
+             style="display:inline-flex;align-items:center;gap:8px;background:var(--bg-card);border:1px solid var(--border);color:var(--text-soft);font-weight:600;font-size:0.85rem;padding:10px 20px;border-radius:8px;text-decoration:none;transition:border-color 0.2s,color 0.2s;"
+             onmouseover="this.style.borderColor='var(--cyan)';this.style.color='var(--cyan)'"
+             onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-soft)'">
+            <i class="bi bi-envelope"></i> Tuma Email
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Form -->
+      <div class="col-lg-7">
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:36px;box-shadow:0 0 50px rgba(6,182,212,0.06);">
+          <form action="/contact" method="POST">
+            <div class="row g-3">
+
+              <div class="col-md-6">
+                <label class="form-label">Jina Kamili</label>
+                <input type="text" name="name" class="form-control contact-input" placeholder="Jina lako kamili" required>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Barua Pepe (Email)</label>
+                <input type="email" name="email" class="form-control contact-input" placeholder="jina@email.com" required>
+              </div>
+
+              <div class="col-12">
+                <label class="form-label">Huduma Unayohitaji</label>
+                <select name="service" class="form-control contact-input" required>
+                  <option value="" disabled selected>Chagua huduma unayohitaji...</option>
+                  <option value="website">Ubunifu na Utengenezaji wa Website</option>
+                  <option value="system">Mfumo wa Usimamizi wa Biashara</option>
+                  <option value="ecommerce">Duka la Mtandaoni (E-Commerce)</option>
+                  <option value="other">Nyinginezo</option>
+                </select>
+              </div>
+
+              <div class="col-12">
+                <label class="form-label">Ujumbe Wako</label>
+                <textarea name="message" class="form-control contact-input" rows="4"
+                          placeholder="Eleza kwa ufupi mradi wako au swali lako..." required></textarea>
+              </div>
+
+              <div class="col-12">
+                <button type="submit" class="btn-primary-grad w-100" style="text-align:center;">
+                  Tuma Ujumbe <i class="bi bi-send ms-2"></i>
+                </button>
+              </div>
+
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════ -->
+<footer style="padding:48px 0 24px;">
+  <div class="container">
+    <div class="row g-4 mb-4">
+
+      <div class="col-lg-4">
+        <div class="navbar-brand mb-3 d-block" style="font-size:1.2rem;font-weight:800;">⚡ CORE DIGITAL</div>
+        <p style="color:var(--text-muted);font-size:0.85rem;line-height:1.8;max-width:280px;">
+          Kujenga mifumo ya kidijitali kwa ajili ya biashara za Kitanzania tangu 2022. Zana halisi, matokeo halisi.
+        </p>
+      </div>
+
+      <div class="col-6 col-lg-2">
+        <p style="color:var(--text-soft);font-size:0.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;">Ukurasa</p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <a href="#home">Mwanzo</a>
+          <a href="#showcase">Kazi Zetu</a>
+          <a href="#services">Huduma</a>
+          <a href="#contact">Mawasiliano</a>
+        </div>
+      </div>
+
+      <div class="col-6 col-lg-2">
+        <p style="color:var(--text-soft);font-size:0.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;">Bidhaa Zetu</p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <a href="#">Ghala App</a>
+          <a href="https://spotika.dig.co.tz">Spotika</a>
+          <a href="https://biashara.dig.co.tz">Biashara</a>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <p style="color:var(--text-soft);font-size:0.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;">Mawasiliano ya Haraka</p>
+        <a href="https://wa.me/255700000000" target="_blank"
+           style="display:inline-flex;align-items:center;gap:8px;background:#22c55e;color:#fff;font-weight:600;font-size:0.82rem;padding:9px 18px;border-radius:8px;text-decoration:none;margin-bottom:10px;">
+          <i class="bi bi-whatsapp"></i> Zungumza Nasi WhatsApp
+        </a>
+        <p style="color:var(--text-muted);font-size:0.82rem;margin:0;">📍 Mbeya & Dar es Salaam, TZ</p>
+      </div>
+
+    </div>
+
+    <hr class="divider">
+
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 pt-2">
+      <p style="color:var(--text-muted);font-size:0.8rem;margin:0;">
+        © <span id="year"></span> Core Digital. Haki zote zimehifadhiwa.
+      </p>
+      <p style="color:var(--text-muted);font-size:0.8rem;margin:0;">
+        Imejengwa kwa umahiri nchini <span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700;">Tanzania 🇹🇿</span>
+      </p>
+    </div>
+
+  </div>
+</footer>
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // ── Auto-update footer year ──
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ── Smooth scroll for all anchor links ──
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Close mobile nav if open
+      const nav = document.getElementById('navMenu');
+      if (nav.classList.contains('show')) {
+        bootstrap.Collapse.getInstance(nav)?.hide();
+      }
+    });
+  });
+
+  // ── Navbar active link on scroll ──
+  const sections = document.querySelectorAll('section[id], nav[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + entry.target.id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
